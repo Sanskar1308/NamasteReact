@@ -6,3 +6,6 @@ bin/
 
 # Ignore the obj directory
 obj/
+node_modules/
+.parcel-cache/
+dist/

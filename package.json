@@ -1,0 +1,27 @@
+{
+  "name": "namaste-react-a1",
+  "version": "1.0.0",
+  "description": "React tuitorial",
+  "main": "namaste.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sanskar1308/NamasteReact.git"
+  },
+  "author": "Sanskar Chirania",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sanskar1308/NamasteReact/issues"
+  },
+  "homepage": "https://github.com/Sanskar1308/NamasteReact#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
