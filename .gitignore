@@ -1,0 +1,8 @@
+# Ignore the bin directory
+bin/
+
+# Ignore all .log files
+*.log
+
+# Ignore the obj directory
+obj/
