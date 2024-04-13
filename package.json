@@ -21,6 +21,7 @@
     "process": "^0.11.10"
   },
   "dependencies": {
+    "git": "^0.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
