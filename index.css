@@ -1,3 +1,37 @@
-#title{
-    background-color: "red";
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+.navbar > a > img {
+    width: 110px;
+    height: 100%;
+}
+
+.navbar-item > ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar-item > ul > li {
+    padding: 5px;
+    font-size: 25px;
+}
+
+.card {
+    width: 200px;
+    font-size: 1rem;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+.card > img {
+    width: 100%;
+}
+
+.restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
 }
