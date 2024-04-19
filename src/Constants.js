@@ -1,23 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+export const IMG_CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
-const Navbar = () => (    
-    <div className="navbar">
-        <a href="/">
-            <img src="https://static.businessworld.in/article/article_extra_large_image/1657054898_mFGu1t_Petpooja.jpg" alt="LOGO"></img>
-        </a>
-        <div className="navbar-item">
-            <ul>
-                <li>Home</li>
-                <li>Product</li>
-                <li>About us</li>
-                <li>Cart</li>
-            </ul>
-        </div>
-    </div>
-)
-
-const restaurants = [
+export const restaurants = [
     {
         "info": {
             "id": "304053",
@@ -1277,45 +1260,4 @@ const restaurants = [
             "type": "WEBLINK"
         }
     }
-]
-
-const RestaurantCard = ({name, cloudinaryImageId, cuisines, avgRating}) => {
-    return (
-        <div className="card">
-            <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + cloudinaryImageId} alt="Card image" />
-            <h2>{name}</h2>
-            <h3>{cuisines.join(", ")}</h3>
-            <h3>{avgRating} star</h3>
-        </div>
-    )
-}
-
-const Body = () => {
-    return (
-        <div className="restaurant-list">
-            {
-                restaurants.map((restaurant) => {
-                   return <RestaurantCard {...restaurant.info} key={restaurant.info.id}/>
-                })
-            }
-        </div>
-    )
-}
-
-const Footer = () => {
-    return (
-        <h1>Footer</h1>
-    )
-}
-
-const AppLayout = () => (    
-    <>
-        <Navbar />
-        <Body />
-        <Footer />
-    </>
-)
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(<AppLayout />);
+];
