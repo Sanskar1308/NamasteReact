@@ -1,20 +1,50 @@
 import RestaurantCard from "./RestaurantCard";
 import { restaurants } from "../Constants";
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
+import Shimmer from "./Shimmer";
 
-function searchFilter (searchText, restaurantsData) {
-    const filterData = restaurantsData.filter ((restaurant) =>
-        restaurant.info.name.includes(searchText)
+function searchFilter (searchText, restaurants) {
+    const filterData = restaurants.filter ((restaurant) =>
+        restaurant.info.name.toLowerCase().includes(searchText.toLowerCase())
     );
-    console.log(filterData)
     return filterData;
 }
 
 
 const Body = () => {
-    const [searchText, setSearchText] = useState("Sai");
+    const [searchText, setSearchText] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [allRestaurantsData, setAllRestaurantsData] = useState([]);
+    const [filteredRestaurantsData, setFilteredRestaurantsData] = useState([]);
 
-    const [restaurantsData, setRestaurantsData] = useState(restaurants);
+    useEffect(() => {
+        getRestaurants();
+    }, []);
+
+    async function getRestaurants() {
+        const data = await fetch (
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.3626388&lng=84.86461129999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        );
+        const json = await data.json();
+        setAllRestaurantsData(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setFilteredRestaurantsData(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    }
+
+    function searchData (searchData, restaurants) {
+        if (searchData !== "") {
+            const filterData = searchFilter(searchData, restaurants);
+            setFilteredRestaurantsData(filterData);
+            setErrorMessage("");
+            if (filterData?.length === 0) {
+                setErrorMessage("No such restaurant found!!");
+            }
+        } else {
+            setErrorMessage("");
+            setFilteredRestaurantsData(restaurants);
+        }
+    };
+
+    if (!allRestaurantsData) return null;
 
     return (
         <>
@@ -31,21 +61,24 @@ const Body = () => {
                 <button
                     className="search-button"
                     onClick={() => {
-                        const data = searchFilter(searchText, restaurantsData);
-                        setRestaurantsData(data);
+                        searchData(searchText, allRestaurantsData);
                     }}    
                 >
                     Search
                 </button>
                 
             </div>
-            <div className="restaurant-list">
-                {
-                    restaurantsData.map((restaurant) => {
-                    return <RestaurantCard {...restaurant.info} key={restaurant.info.id}/>
-                    })
-                }
-            </div>
+            <div className="error-container">{errorMessage}</div>
+            {allRestaurantsData.length === 0 ? (<Shimmer />) : (
+                <div className="restaurant-list">
+                    {
+                        filteredRestaurantsData.map((restaurant) => {
+                        return <RestaurantCard {...restaurant.info} key={restaurant.info.id}/>
+                        })
+                    }
+                </div>
+            )}
+            
         </>
         
     )
