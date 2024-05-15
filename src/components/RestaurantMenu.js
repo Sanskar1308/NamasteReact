@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; 
 import { IMG_CDN_URL } from "../Constants";
+import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
-    const { resId } = useParams();
+    const params = useParams();
 
-    const [restaurant, setRestaurant] = useState({});
+    const [restaurant, setRestaurant] = useState(null);
 
     const [menuItems, setMenuItems] = useState([]);
 
@@ -15,7 +16,7 @@ const RestaurantMenu = () => {
 
     async function getRestaurantInfo() {
         try {
-          const response = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.3149618&lng=84.7940911&restaurantId=191714");
+          const response = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.3149618&lng=84.7940911&restaurantId="+params.id);
           const json = await response.json();
     
           // Set restaurant data
@@ -43,12 +44,10 @@ const RestaurantMenu = () => {
           console.log(error);
         }
       }
-    
-
-    return (
+    return (!restaurant) ? <Shimmer /> : (
         <>
-                    <div>
-            <h1>Restaurant id: {resId}</h1>
+        <div>
+            <h1>Restaurant id: {params.id}</h1>
             <h2>{restaurant?.name}</h2>
             <img src= {IMG_CDN_URL + restaurant?.cloudinaryImageId}></img>
             <h3>{restaurant?.city}</h3>
