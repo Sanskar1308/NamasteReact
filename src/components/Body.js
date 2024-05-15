@@ -23,7 +23,7 @@ const Body = () => {
 
     async function getRestaurants() {
         const data = await fetch (
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.3626388&lng=84.86461129999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.3149618&lng=84.7940911&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         );
         const json = await data.json();
         setAllRestaurantsData(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
@@ -68,7 +68,7 @@ const Body = () => {
                 </button>
                 
             </div>
-            <div className="error-container">{errorMessage}</div>
+            {errorMessage && <div className="error-container">{errorMessage}</div>}
             {allRestaurantsData.length === 0 ? (<Shimmer />) : (
                 <div className="restaurant-list">
                     {
